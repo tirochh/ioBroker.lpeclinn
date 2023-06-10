@@ -104,6 +104,27 @@
                 "def": false
             },
             "native": {}
+        },
+        {
+            "_id": "device",
+            "type": "channel",
+            "common": {
+                "name": "Device"
+            },
+            "native": {}
+        },
+        {
+            "_id": "device.volume",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "Volume",
+                "type": "string",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
         }
     ]
 }
