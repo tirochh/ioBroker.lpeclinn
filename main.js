@@ -76,7 +76,15 @@ class Lpeclinn extends utils.Adapter {
             this.log.info('Subscribe Ds/Volume 2');
             // @ts-ignore
             stream.write('Subscribe Ds/Volume 2\n');
-            // setTimeout(() => stream.write('Action Ds/Volume 2 SetVolume "30"\n'), 5000);
+
+            this.log.info('Subscribe Ds/Product 1');
+            // @ts-ignore
+            stream.write('Subscribe Ds/Product 1\n');
+
+            this.log.info('Subscribe Ds/Radio 2');
+            // @ts-ignore
+            stream.write('Subscribe Ds/Radio 2\n');
+
             this.stream = stream;
 
         });
@@ -101,6 +109,9 @@ class Lpeclinn extends utils.Adapter {
         // In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
         this.subscribeStates('device.volume');
         this.subscribeStates('device.mute');
+        this.subscribeStates('device.standby');
+        this.subscribeStates('device.sourceIndex');
+        this.subscribeStates('device.radio');
 
         // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
         // this.subscribeStates('lights.*');
@@ -143,8 +154,11 @@ class Lpeclinn extends utils.Adapter {
         const events = event.split(' ');
 
         if (events[0] == 'EVENT') {
-            this.setLinnEventToIOBroker.bind(this)(events,'Volume', 'device.volume');
-            this.setLinnEventToIOBroker.bind(this)(events,'Mute', 'device.mute');
+            this.setLinnEventToIOBroker.bind(this)(events, 'Volume', 'device.volume');
+            this.setLinnEventToIOBroker.bind(this)(events, 'Mute', 'device.mute');
+            this.setLinnEventToIOBroker.bind(this)(events, 'Standby', 'device.standby');
+            this.setLinnEventToIOBroker.bind(this)(events, 'SourceIndex', 'device.sourceIndex');
+            this.setLinnEventToIOBroker.bind(this)(events, 'Uri', 'device.radio');
         }
     }
 
@@ -204,9 +218,22 @@ class Lpeclinn extends utils.Adapter {
                     // @ts-ignore
                     this.stream.write(`Action Ds/Volume 2 SetMute "${state.val ? 'true' : 'false'}"  \n`);
                     break;
-                // case 'blank':
-                //     this.projectorSetBlank(state.val.toString());
-                //     break;
+                case 'device.standby':
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Product 1 SetStandby "${state.val ? 'true' : 'false'}"  \n`);
+                    break;
+                case 'device.sourceIndex':
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Product 1 SetSourceIndex "${state.val}" "" \n`);
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Product 1 Play  \n`);
+                    break;
+                case 'device.radio':
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Radio 2 SetId "${state.val}"  \n`);
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Radio 2 Play  \n`);
+                    break;
             }
 
         } else {

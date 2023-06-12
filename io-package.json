@@ -138,6 +138,45 @@
                 "def": false
             },
             "native": {}
+        },
+        {
+            "_id": "device.standby",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "StandBy",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "device.sourceIndex",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "SourceIndex",
+                "type": "string",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "device.radio",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "Radio",
+                "type": "string",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
         }
     ]
 }
