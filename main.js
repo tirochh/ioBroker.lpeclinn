@@ -10,6 +10,8 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
+const { Telnet } = require('telnet-client');
+
 
 class Lpeclinn extends utils.Adapter {
 
@@ -26,6 +28,8 @@ class Lpeclinn extends utils.Adapter {
         // this.on('objectChange', this.onObjectChange.bind(this));
         // this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
+
+        this.connection = new Telnet();
     }
 
     /**
@@ -42,25 +46,60 @@ class Lpeclinn extends utils.Adapter {
         this.log.info('config option1: ' + this.config.option1);
         this.log.info('config option2: ' + this.config.option2);
 
+        // Init Telnet
+        const params = {
+            host: '192.168.1.102',
+            port: 23,
+            timeout: 10000,
+            negotiationMandatory: false
+        };
+
+        try {
+            await this.connection.connect(params);
+        } catch (error) {
+            // handle the throw (timeout)
+            this.log.error('No connection');
+            return;
+        }
+        this.setState('info.connection', true, true);
+        // const log = this.log;
+        const onLinnEvent = this.onLinnEvent;
+        this.connection.shell((error, stream) => {
+            // @ts-ignore
+            stream.on('data', (data) => {
+                const events = data.toString().split(/\r?\n/);
+                events.forEach(event => {
+                    onLinnEvent.bind(this)(event);
+                });
+
+            });
+            this.log.info('Subscribe Ds/Volume 2');
+            // @ts-ignore
+            stream.write('Subscribe Ds/Volume 2\n');
+            // setTimeout(() => stream.write('Action Ds/Volume 2 SetVolume "30"\n'), 5000);
+            this.stream = stream;
+
+        });
+
         /*
         For every state in the system there has to be also an object of type state
         Here a simple template for a boolean variable named "testVariable"
         Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
         */
-        await this.setObjectNotExistsAsync('testVariable', {
-            type: 'state',
-            common: {
-                name: 'testVariable',
-                type: 'boolean',
-                role: 'indicator',
-                read: true,
-                write: true,
-            },
-            native: {},
-        });
+        // await this.setObjectNotExistsAsync('testVariable', {
+        //     type: 'state',
+        //     common: {
+        //         name: 'testVariable',
+        //         type: 'boolean',
+        //         role: 'indicator',
+        //         read: true,
+        //         write: true,
+        //     },
+        //     native: {},
+        // });
 
         // In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-        this.subscribeStates('testVariable');
+        this.subscribeStates('device.volume');
         // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
         // this.subscribeStates('lights.*');
         // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
@@ -71,21 +110,35 @@ class Lpeclinn extends utils.Adapter {
             you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
         */
         // the variable testVariable is set to true as command (ack=false)
-        await this.setStateAsync('testVariable', true);
+        // await this.setStateAsync('testVariable', true);
 
         // same thing, but the value is flagged "ack"
         // ack should be always set to true if the value is received from or acknowledged from the target system
-        await this.setStateAsync('testVariable', { val: true, ack: true });
+        // await this.setStateAsync('testVariable', { val: true, ack: true });
 
         // same thing, but the state is deleted after 30s (getState will return null afterwards)
-        await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
+        // await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
 
         // examples for the checkPassword/checkGroup functions
-        let result = await this.checkPasswordAsync('admin', 'iobroker');
-        this.log.info('check user admin pw iobroker: ' + result);
+        // let result = await this.checkPasswordAsync('admin', 'iobroker');
+        // this.log.info('check user admin pw iobroker: ' + result);
 
-        result = await this.checkGroupAsync('admin', 'admin');
-        this.log.info('check group user admin group admin: ' + result);
+        // result = await this.checkGroupAsync('admin', 'admin');
+        // this.log.info('check group user admin group admin: ' + result);
+    }
+
+    async onLinnEvent(event) {
+        if (!event || event == '') return;
+        this.log.info('LPEC Linn Event: ' + event);
+        const events = event.split(' ');
+
+        if (events[0] == 'EVENT') {
+            const iv = events.findIndex(i => i == 'Volume');
+            if (iv > 0) {
+                this.log.info('Set Vol: ' + events[iv + 1]);
+                await this.setStateAsync('device.volume', { val: events[iv + 1].slice(1, -1), ack: true });
+            }
+        }
     }
 
     /**
@@ -131,10 +184,29 @@ class Lpeclinn extends utils.Adapter {
     onStateChange(id, state) {
         if (state) {
             // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            this.log.info(`IOBroker change: state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            if(state.ack) return;
+
+            const onlyId = id.replace(this.namespace + '.', '');
+            switch (onlyId) {
+                case 'device.volume':
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"  \n`);
+                    break;
+                // case 'input':
+                //     this.projectorSetInput(state.val.toString());
+                //     break;
+                // case 'blank':
+                //     this.projectorSetBlank(state.val.toString());
+                //     break;
+            }
+            // if (id == 'lpeclinn.0.device.volume') {
+            //     // @ts-ignore
+            //     this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"  \n`);
+            // }
         } else {
             // The state was deleted
-            this.log.info(`state ${id} deleted`);
+            this.log.info(`IOBroker change: state ${id} deleted`);
         }
     }
 
