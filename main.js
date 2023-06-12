@@ -100,6 +100,8 @@ class Lpeclinn extends utils.Adapter {
 
         // In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
         this.subscribeStates('device.volume');
+        this.subscribeStates('device.mute');
+
         // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
         // this.subscribeStates('lights.*');
         // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
@@ -127,17 +129,22 @@ class Lpeclinn extends utils.Adapter {
         // this.log.info('check group user admin group admin: ' + result);
     }
 
+    async setLinnEventToIOBroker(events, linnName, ioBrokerName) {
+        const iv = events.findIndex(i => i == linnName);
+        if (iv > 0) {
+            this.log.info(`Set ${linnName}:   ${events[iv + 1]}`);
+            await this.setStateAsync(ioBrokerName, { val: events[iv + 1].slice(1, -1), ack: true });
+        }
+    }
+
     async onLinnEvent(event) {
         if (!event || event == '') return;
         this.log.info('LPEC Linn Event: ' + event);
         const events = event.split(' ');
 
         if (events[0] == 'EVENT') {
-            const iv = events.findIndex(i => i == 'Volume');
-            if (iv > 0) {
-                this.log.info('Set Vol: ' + events[iv + 1]);
-                await this.setStateAsync('device.volume', { val: events[iv + 1].slice(1, -1), ack: true });
-            }
+            this.setLinnEventToIOBroker.bind(this)(events,'Volume', 'device.volume');
+            this.setLinnEventToIOBroker.bind(this)(events,'Mute', 'device.mute');
         }
     }
 
@@ -185,7 +192,7 @@ class Lpeclinn extends utils.Adapter {
         if (state) {
             // The state was changed
             this.log.info(`IOBroker change: state ${id} changed: ${state.val} (ack = ${state.ack})`);
-            if(state.ack) return;
+            if (state.ack) return;
 
             const onlyId = id.replace(this.namespace + '.', '');
             switch (onlyId) {
@@ -193,17 +200,15 @@ class Lpeclinn extends utils.Adapter {
                     // @ts-ignore
                     this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"  \n`);
                     break;
-                // case 'input':
-                //     this.projectorSetInput(state.val.toString());
-                //     break;
+                case 'device.mute':
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Volume 2 SetMute "${state.val ? 'true' : 'false'}"  \n`);
+                    break;
                 // case 'blank':
                 //     this.projectorSetBlank(state.val.toString());
                 //     break;
             }
-            // if (id == 'lpeclinn.0.device.volume') {
-            //     // @ts-ignore
-            //     this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"  \n`);
-            // }
+
         } else {
             // The state was deleted
             this.log.info(`IOBroker change: state ${id} deleted`);

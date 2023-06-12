@@ -125,6 +125,19 @@
                 "def": false
             },
             "native": {}
+        },
+        {
+            "_id": "device.mute",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "Mute",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": false
+            },
+            "native": {}
         }
     ]
 }
