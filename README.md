@@ -15,7 +15,7 @@
 Lpec Adapter for Linn Devices
 
 ## Developer manual
-This section is intended for the developer. It can be deleted later.
+This section is intended for the developer. It can be deleted later. Test.
 
 ### DISCLAIMER
 
