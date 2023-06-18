@@ -220,19 +220,19 @@ class Lpeclinn extends utils.Adapter {
                     break;
                 case 'device.standby':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Product 1 SetStandby "${state.val ? 'true' : 'false'}"  \n`);
+                    this.stream.write(`Action Ds/Product 2 SetStandby "${state.val ? 'true' : 'false'}"  \n`);
                     break;
                 case 'device.sourceIndex':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Product 1 SetSourceIndex "${state.val}" "" \n`);
+                    this.stream.write(`Action Ds/Product 2 SetSourceIndex "${state.val}" "" \n`);
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Product 1 Play  \n`);
+                    this.stream.write(`Action Ds/Product 2 Play  \n`);
                     break;
                 case 'device.radio':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Radio 2 SetId "${state.val}"  \n`);
+                    this.stream.write(`Action Ds/Radio 1 SetId "${state.val}"  \n`);
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Radio 2 Play  \n`);
+                    this.stream.write(`Action Ds/Radio 1 Play  \n`);
                     break;
             }
 
