@@ -1,182 +1,195 @@
 {
-    "common": {
-        "name": "lpeclinn",
-        "version": "0.0.1",
-        "news": {
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "uk": "Початкова версія",
-                "zh-cn": "首次出版"
-            }
-        },
-        "title": "Lpec Linn",
-        "titleLang": {
-            "en": "Lpec Linn",
-            "de": "Lpec Linn",
-            "ru": "Лпец Линн",
-            "pt": "Lpec Linn",
-            "nl": "Lepe Linn",
-            "fr": "Lpec Linn",
-            "it": "Lpe Linn",
-            "es": "lpec linn",
-            "pl": "Lpec Linn",
-            "uk": "Лпек Лінн",
-            "zh-cn": "石油天然气公司"
-        },
-        "desc": {
-            "en": "Lpec Adapter for Linn Devices",
-            "de": "Lpec-Adapter für Linn-Geräte",
-            "ru": "Адаптер Lpec для устройств Linn",
-            "pt": "Adaptador Lpec para dispositivos Linn",
-            "nl": "Lpec-adapter voor Linn-apparaten",
-            "fr": "Adaptateur Lpec pour appareils Linn",
-            "it": "Adattatore Lpec per dispositivi Linn",
-            "es": "Adaptador Lpec para dispositivos Linn",
-            "pl": "Adapter Lpec do urządzeń Linn",
-            "uk": "Адаптер Lpec для пристроїв Linn",
-            "zh-cn": "用于 Linn 设备的 Lpec 适配器"
-        },
-        "authors": [
-            "anei <anei@gmail.com>"
-        ],
-        "keywords": [
-            "lpec",
-            "linn"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "lpeclinn.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/eidmanna/ioBroker.lpeclinn/main/admin/lpeclinn.png",
-        "readme": "https://github.com/eidmanna/ioBroker.lpeclinn/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "multimedia",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "push",
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.3.22"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.13"
-            }
-        ]
+  "common": {
+    "name": "lpeclinn",
+    "version": "0.0.2-alpha.0",
+    "news": {
+      "0.0.2-alpha.0": {
+        "en": "initial release",
+        "de": "erstausstrahlung",
+        "ru": "начальный выпуск",
+        "pt": "lançamento inicial",
+        "nl": "niet",
+        "fr": "initial release",
+        "it": "rilascio iniziale",
+        "es": "liberación inicial",
+        "pl": "pierwsze wydanie",
+        "uk": "початковий реліз",
+        "zh-cn": "初步释放"
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "uk": "Початкова версія",
+        "zh-cn": "首次出版"
+      }
     },
-    "native": {
-        "option1": true,
-        "option2": "42"
+    "title": "Lpec Linn",
+    "titleLang": {
+      "en": "Lpec Linn",
+      "de": "Lpec Linn",
+      "ru": "Лпец Линн",
+      "pt": "Lpec Linn",
+      "nl": "Lepe Linn",
+      "fr": "Lpec Linn",
+      "it": "Lpe Linn",
+      "es": "lpec linn",
+      "pl": "Lpec Linn",
+      "uk": "Лпек Лінн",
+      "zh-cn": "石油天然气公司"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "device",
-            "type": "channel",
-            "common": {
-                "name": "Device"
-            },
-            "native": {}
-        },
-        {
-            "_id": "device.volume",
-            "type": "state",
-            "common": {
-                "role": "value",
-                "name": "Volume",
-                "type": "string",
-                "read": true,
-                "write": true,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "device.mute",
-            "type": "state",
-            "common": {
-                "role": "value",
-                "name": "Mute",
-                "type": "boolean",
-                "read": true,
-                "write": true,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "device.standby",
-            "type": "state",
-            "common": {
-                "role": "value",
-                "name": "StandBy",
-                "type": "boolean",
-                "read": true,
-                "write": true,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "device.sourceIndex",
-            "type": "state",
-            "common": {
-                "role": "value",
-                "name": "SourceIndex",
-                "type": "string",
-                "read": true,
-                "write": true,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "device.radio",
-            "type": "state",
-            "common": {
-                "role": "value",
-                "name": "Radio",
-                "type": "string",
-                "read": true,
-                "write": true,
-                "def": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Lpec Adapter for Linn Devices",
+      "de": "Lpec-Adapter für Linn-Geräte",
+      "ru": "Адаптер Lpec для устройств Linn",
+      "pt": "Adaptador Lpec para dispositivos Linn",
+      "nl": "Lpec-adapter voor Linn-apparaten",
+      "fr": "Adaptateur Lpec pour appareils Linn",
+      "it": "Adattatore Lpec per dispositivi Linn",
+      "es": "Adaptador Lpec para dispositivos Linn",
+      "pl": "Adapter Lpec do urządzeń Linn",
+      "uk": "Адаптер Lpec для пристроїв Linn",
+      "zh-cn": "用于 Linn 设备的 Lpec 适配器"
+    },
+    "authors": [
+      "anei <anei@gmail.com>"
+    ],
+    "keywords": [
+      "lpec",
+      "linn"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "lpeclinn.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/eidmanna/ioBroker.lpeclinn/main/admin/lpeclinn.png",
+    "readme": "https://github.com/eidmanna/ioBroker.lpeclinn/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "multimedia",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
     ]
+  },
+  "native": {
+    "option1": true,
+    "option2": "42"
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "device",
+      "type": "channel",
+      "common": {
+        "name": "Device"
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.volume",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Volume",
+        "type": "string",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.mute",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Mute",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.standby",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "StandBy",
+        "type": "boolean",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.sourceIndex",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "SourceIndex",
+        "type": "string",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.radio",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Radio",
+        "type": "string",
+        "read": true,
+        "write": true,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }
