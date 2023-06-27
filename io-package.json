@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "lpeclinn",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "news": {
+      "1.0.2": {
+        "en": "disable sentry",
+        "de": "deaktivieren der sendung",
+        "ru": "отключить судоходство",
+        "pt": "desativar o remetente",
+        "nl": "smokey",
+        "fr": "désactive sentiry",
+        "it": "disabilitare la sentinella",
+        "es": "centinela deshabilitada",
+        "pl": "dysponowany",
+        "uk": "відключити відправника",
+        "zh-cn": "令人失望的发信"
+      },
       "1.0.1": {
         "en": "test version",
         "de": "testversion",
