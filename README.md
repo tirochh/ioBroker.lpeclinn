@@ -95,6 +95,8 @@ Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (anei) disable sentry
 ### 1.0.1 (2023-06-27)
 * (anei) test version
 
