@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "lpeclinn",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "news": {
+      "1.0.1": {
+        "en": "test version",
+        "de": "testversion",
+        "ru": "тестовая версия",
+        "pt": "versão de teste",
+        "nl": "vertaling:",
+        "fr": "test version",
+        "it": "versione test",
+        "es": "versión de prueba",
+        "pl": "wersja testowa",
+        "uk": "тестова версія",
+        "zh-cn": "试验版本"
+      },
       "1.0.0": {
         "en": "initial release",
         "de": "erstausstrahlung",
