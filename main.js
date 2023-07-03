@@ -157,7 +157,7 @@ class Lpeclinn extends utils.Adapter {
             this.setLinnEventToIOBroker.bind(this)(events, 'Volume', 'device.volume');
             this.setLinnEventToIOBroker.bind(this)(events, 'Mute', 'device.mute');
             this.setLinnEventToIOBroker.bind(this)(events, 'Standby', 'device.standby');
-            this.setLinnEventToIOBroker.bind(this)(events, 'SourceIndex', 'device.sourceIndex');
+            this.setLinnEventToIOBroker.bind(this)(events, 'SourceIndex', 'device.sourceIndex');0
             this.setLinnEventToIOBroker.bind(this)(events, 'Id', 'device.radio');
         }
     }
@@ -272,3 +272,4 @@ if (require.main !== module) {
     // otherwise start the instance directly
     new Lpeclinn();
 }
+8
