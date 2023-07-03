@@ -77,13 +77,13 @@ class Lpeclinn extends utils.Adapter {
             // @ts-ignore
             stream.write('Subscribe Ds/Volume 2\n');
 
-            this.log.info('Subscribe Ds/Product 1');
+            this.log.info('Subscribe Ds/Product 2');
             // @ts-ignore
-            stream.write('Subscribe Ds/Product 1\n');
+            stream.write('Subscribe Ds/Product 2\n');
 
-            this.log.info('Subscribe Ds/Radio 2');
+            this.log.info('Subscribe Ds/Radio 1');
             // @ts-ignore
-            stream.write('Subscribe Ds/Radio 2\n');
+            stream.write('Subscribe Ds/Radio 1\n');
 
             this.stream = stream;
 
@@ -158,7 +158,7 @@ class Lpeclinn extends utils.Adapter {
             this.setLinnEventToIOBroker.bind(this)(events, 'Mute', 'device.mute');
             this.setLinnEventToIOBroker.bind(this)(events, 'Standby', 'device.standby');
             this.setLinnEventToIOBroker.bind(this)(events, 'SourceIndex', 'device.sourceIndex');
-            this.setLinnEventToIOBroker.bind(this)(events, 'Uri', 'device.radio');
+            this.setLinnEventToIOBroker.bind(this)(events, 'Id', 'device.radio');
         }
     }
 
@@ -224,13 +224,13 @@ class Lpeclinn extends utils.Adapter {
                     break;
                 case 'device.sourceIndex':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Product 2 SetSourceIndex "${state.val}" "" \n`);
+                    this.stream.write(`Action Ds/Product 2 SetSourceIndex "${state.val}" \n`);
                     // @ts-ignore
                     this.stream.write(`Action Ds/Product 2 Play  \n`);
                     break;
                 case 'device.radio':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Radio 1 SetId "${state.val}"  \n`);
+                    this.stream.write(`Action Ds/Radio 1 SetId "${state.val}" "" \n`);
                     // @ts-ignore
                     this.stream.write(`Action Ds/Radio 1 Play  \n`);
                     break;
