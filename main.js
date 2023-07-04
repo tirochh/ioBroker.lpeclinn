@@ -67,7 +67,7 @@ class Lpeclinn extends utils.Adapter {
         this.connection.shell((error, stream) => {
             // @ts-ignore
             stream.on('data', (data) => {
-                const events = data.toString().split(/\r?\n/);
+                const events = [data.toString()]; //.split(/\r?\n/);
                 events.forEach(event => {
                     onLinnEvent.bind(this)(event);
                 });
@@ -140,25 +140,29 @@ class Lpeclinn extends utils.Adapter {
         // this.log.info('check group user admin group admin: ' + result);
     }
 
-    async setLinnEventToIOBroker(events, linnName, ioBrokerName) {
-        const iv = events.findIndex(i => i == linnName);
-        if (iv > 0) {
-            this.log.info(`Set ${linnName}:   ${events[iv + 1]}`);
-            await this.setStateAsync(ioBrokerName, { val: events[iv + 1].slice(1, -1), ack: true });
+    async setLinnEventToIOBroker(ev, linnName, ioBrokerName) {
+        const regEx  = (txtValue) => RegExp(`${txtValue} \\"(\\d+|true|false|\\w+)\\"`,'gm');
+        // const regEx2 = (txtValue) => RegExp(`${txtValue}&gt;(\\w+)&lt;`,'gm');
+        const getValueSubscribed = (subscribed,regex) => Array.from(subscribed.matchAll(regex)).length?Array.from(subscribed.matchAll(regex)).at(-1).at(-1):'';
+        //const setValue =  (txtSubdevice,txtServiceVersion,txtValue,val,val2='')  => `Action ${txtSubdevice}/${txtServiceVersion} Set${txtValue} "${val}"${val2}`
+        //const setPlay =   (txtSubdevice,txtServiceVersion)  => `Action ${txtSubdevice}/${txtServiceVersion} Play`
+        //const subScribe = (txtSubdevice,txtService) => `Subscribe ${txtSubdevice}/${txtService}`;
+        const get_v = getValueSubscribed(ev.regEx(linnName));
+        if (get_v != '') {
+            this.log.info(`Set ${linnName}: ${get_v}`);
+            await this.setStateAsync(ioBrokerName,{val:get_v,ack:true});
         }
     }
 
     async onLinnEvent(event) {
         if (!event || event == '') return;
         this.log.info('LPEC Linn Event: ' + event);
-        const events = event.split(' ');
-
-        if (events[0] == 'EVENT') {
-            this.setLinnEventToIOBroker.bind(this)(events, 'Volume', 'device.volume');
-            this.setLinnEventToIOBroker.bind(this)(events, 'Mute', 'device.mute');
-            this.setLinnEventToIOBroker.bind(this)(events, 'Standby', 'device.standby');
-            this.setLinnEventToIOBroker.bind(this)(events, 'SourceIndex', 'device.sourceIndex');0
-            this.setLinnEventToIOBroker.bind(this)(events, 'Id', 'device.radio');
+        if (event.split(' ')[0] == 'EVENT') {
+            this.setLinnEventToIOBroker.bind(this)(event, 'Volume', 'device.volume');
+            this.setLinnEventToIOBroker.bind(this)(event, 'Mute', 'device.mute');
+            this.setLinnEventToIOBroker.bind(this)(event, 'Standby', 'device.standby');
+            this.setLinnEventToIOBroker.bind(this)(event, 'SourceIndex', 'device.sourceIndex');
+            this.setLinnEventToIOBroker.bind(this)(event, 'Id', 'device.radio');
         }
     }
 
@@ -169,7 +173,7 @@ class Lpeclinn extends utils.Adapter {
     onUnload(callback) {
         try {
             // Here you must clear all timeouts or intervals that may still be active
-            // clearTimeout(timeout1);
+            // clearTimeout(timeout1);dddd
             // clearTimeout(timeout2);
             // ...
             // clearInterval(interval1);
@@ -212,27 +216,27 @@ class Lpeclinn extends utils.Adapter {
             switch (onlyId) {
                 case 'device.volume':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"  \n`);
+                    this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}" \n`);
                     break;
                 case 'device.mute':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Volume 2 SetMute "${state.val ? 'true' : 'false'}"  \n`);
+                    this.stream.write(`Action Ds/Volume 2 SetMute "${state.val}" \n`);
                     break;
                 case 'device.standby':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Product 2 SetStandby "${state.val ? 'true' : 'false'}"  \n`);
+                    this.stream.write(`Action Ds/Product 2 SetStandby "${state.val}" \n`);
                     break;
                 case 'device.sourceIndex':
                     // @ts-ignore
                     this.stream.write(`Action Ds/Product 2 SetSourceIndex "${state.val}" \n`);
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Product 2 Play  \n`);
+                    this.stream.write(`Action Ds/Product 2 Play \n`);
                     break;
                 case 'device.radio':
                     // @ts-ignore
                     this.stream.write(`Action Ds/Radio 1 SetId "${state.val}"  "" \n`);
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Radio 1 Play  \n`);
+                    this.stream.write(`Action Ds/Radio 1 Play \n`);
                     break;
             }
 
@@ -272,4 +276,3 @@ if (require.main !== module) {
     // otherwise start the instance directly
     new Lpeclinn();
 }
-8
