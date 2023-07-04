@@ -147,7 +147,7 @@ class Lpeclinn extends utils.Adapter {
         //const setValue =  (txtSubdevice,txtServiceVersion,txtValue,val,val2='')  => `Action ${txtSubdevice}/${txtServiceVersion} Set${txtValue} "${val}"${val2}`
         //const setPlay =   (txtSubdevice,txtServiceVersion)  => `Action ${txtSubdevice}/${txtServiceVersion} Play`
         //const subScribe = (txtSubdevice,txtService) => `Subscribe ${txtSubdevice}/${txtService}`;
-        const get_v = getValueSubscribed(ev.regEx(linnName));
+        const get_v = getValueSubscribed(ev,regEx(linnName));
         if (get_v != '') {
             this.log.info(`Set ${linnName}: ${get_v}`);
             await this.setStateAsync(ioBrokerName,{val:get_v,ack:true});
