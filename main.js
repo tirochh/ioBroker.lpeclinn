@@ -207,6 +207,24 @@ class Lpeclinn extends utils.Adapter {
      * @param {ioBroker.State | null | undefined} state
      */
     onStateChange(id, state) {
+        const ix = [
+            'PlayList', // 0
+            'Radio',    // 1
+            'iN_02',    // 2
+            'iN_03',    // 3
+            'iN_04',    // 4
+            'iN-05',    // 5
+            'iN_06',    // 6
+            'iN_07',    // 7
+            'iN_08',    // 8
+            'HDMI1',    // 9
+            'HDMI2',    // 10
+            'HDMI3',    // 11
+            'HDMI4',    // 12
+            'HDMI ARC', // 13
+            'iN_14',    // 14
+            'iN_15'     // 15
+        ];
         if (state) {
             // The state was changed
             this.log.info(`IOBroker change: state ${id} changed: ${state.val} (ack = ${state.ack})`);
@@ -228,7 +246,7 @@ class Lpeclinn extends utils.Adapter {
                     break;
                 case 'device.sourceIndex':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Product 2 SetSourceIndex "${state.val}" \n`);
+                    this.stream.write(`Action Ds/Product 2 SetSourceIndexBsName "${ix[Number(state.val)]}" \n`);
                     // @ts-ignore
                     this.stream.write(`Action Ds/Product 2 Play \n`);
                     break;
