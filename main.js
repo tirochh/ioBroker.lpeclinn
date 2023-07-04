@@ -230,12 +230,13 @@ class Lpeclinn extends utils.Adapter {
             this.log.info(`IOBroker change: state ${id} changed: ${state.val} (ack = ${state.ack})`);
             if (state.ack) return;
 
-            const onlyId = id.replace('lpeclinn.0.', '');  //this.namespace + '.', '');
+            //const onlyId = id.replace('lpeclinn.0.', '');  //this.namespace + '.', '');
+            const onlyId = id.replace(this.namespace + '.', '');
             this.log.info(onlyId);
             switch (onlyId) {
                 case 'device.volume':
-                    // @ts-ignore
                     this.log.info(`Action Ds/Volume 2 SetVolume "${state.val}"`);
+                    // @ts-ignore
                     this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"`);
                     break;
                 case 'device.mute':
@@ -246,12 +247,12 @@ class Lpeclinn extends utils.Adapter {
                     // @ts-ignore
                     this.stream.write(`Action Ds/Product 2 SetStandby "${state.val}" \n`);
                     break;
-                case 'device.sourceIndex':
+                    case 'device.sourceIndex':
                     // @ts-ignore
                     //this.stream.write(`Action Ds/Product 2 SetSourceIndexByName "${ix[Number(state.val)]}" \n`);
                     this.stream.write(`Action Ds/Product 2 SetSourceIndex "${state.val}" \n`);
                     // @ts-ignore
-                    //this.stream.write(`Action Ds/Product 2 Play \n`);
+                    this.stream.write(`Action Ds/Product 2 Play \n`);
                     break;
                 case 'device.radio':
                     // @ts-ignore
@@ -297,3 +298,4 @@ if (require.main !== module) {
     // otherwise start the instance directly
     new Lpeclinn();
 }
+                
