@@ -247,9 +247,9 @@ class Lpeclinn extends utils.Adapter {
                     // @ts-ignore
                     this.stream.write(`Action Ds/Product 2 SetStandby "${state.val}" \n`);
                     break;
-                    case 'device.sourceIndex':
-                    // @ts-ignore
+                case 'device.sourceIndex':
                     //this.stream.write(`Action Ds/Product 2 SetSourceIndexByName "${ix[Number(state.val)]}" \n`);
+                    // @ts-ignore
                     this.stream.write(`Action Ds/Product 2 SetSourceIndex "${state.val}" \n`);
                     // @ts-ignore
                     this.stream.write(`Action Ds/Product 2 Play \n`);
