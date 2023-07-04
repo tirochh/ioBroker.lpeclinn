@@ -157,13 +157,13 @@ class Lpeclinn extends utils.Adapter {
     async onLinnEvent(event) {
         if (!event || event == '') return;
         this.log.info('LPEC Linn Event: ' + event);
-        if (event.split(' ')[0] == 'EVENT') {
+        //if (event.split(' ')[0] == 'EVENT') {
             this.setLinnEventToIOBroker.bind(this)(event, 'Volume', 'device.volume');
             this.setLinnEventToIOBroker.bind(this)(event, 'Mute', 'device.mute');
             this.setLinnEventToIOBroker.bind(this)(event, 'Standby', 'device.standby');
             this.setLinnEventToIOBroker.bind(this)(event, 'SourceIndex', 'device.sourceIndex');
             this.setLinnEventToIOBroker.bind(this)(event, 'Id', 'device.radio');
-        }
+        //}
     }
 
     /**
