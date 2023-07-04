@@ -196,7 +196,7 @@
       "type": "state",
       "common": {
         "role": "value",
-        "name": "StandBy",
+        "name": "Standby",
         "type": "string",
         "read": true,
         "write": true,
