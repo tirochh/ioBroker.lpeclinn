@@ -174,7 +174,7 @@
         "type": "string",
         "read": true,
         "write": true,
-        "def": false
+        "def": "49"
       },
       "native": {}
     },
@@ -187,7 +187,7 @@
         "type": "string",
         "read": true,
         "write": true,
-        "def": false
+        "def": "false"
       },
       "native": {}
     },
@@ -200,12 +200,12 @@
         "type": "string",
         "read": true,
         "write": true,
-        "def": false
+        "def": "false"
       },
       "native": {}
     },
     {
-      "_id": "device.sourceIndex",
+      "_id": "device.sourceindex",
       "type": "state",
       "common": {
         "role": "value",
@@ -213,7 +213,7 @@
         "type": "string",
         "read": true,
         "write": true,
-        "def": false
+        "def": "1"
       },
       "native": {}
     },
@@ -226,7 +226,7 @@
         "type": "string",
         "read": true,
         "write": true,
-        "def": false
+        "def": "3"
       },
       "native": {}
     }
