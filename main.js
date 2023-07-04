@@ -235,9 +235,8 @@ class Lpeclinn extends utils.Adapter {
             this.log.info(onlyId);
             switch (onlyId) {
                 case 'device.volume':
-                    this.log.info(`Action Ds/Volume 2 SetVolume "${state.val}"`);
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"`);
+                    this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}" \nn`);
                     break;
                 case 'device.mute':
                     // @ts-ignore
