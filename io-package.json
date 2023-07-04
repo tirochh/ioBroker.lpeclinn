@@ -205,7 +205,7 @@
       "native": {}
     },
     {
-      "_id": "device.sourceindex",
+      "_id": "device.sourceIndex",
       "type": "state",
       "common": {
         "role": "value",
