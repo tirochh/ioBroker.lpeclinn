@@ -81,9 +81,9 @@ class Lpeclinn extends utils.Adapter {
             // @ts-ignore
             stream.write('Subscribe Ds/Product 2\n');
 
-            this.log.info('Subscribe Ds/Radio 1');
+            this.log.info('Subscribe Ds/Radio 2');
             // @ts-ignore
-            stream.write('Subscribe Ds/Radio 1\n');
+            stream.write('Subscribe Ds/Radio 2\n');
 
             this.stream = stream;
 
@@ -234,9 +234,9 @@ class Lpeclinn extends utils.Adapter {
                     break;
                 case 'device.radio':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Radio 1 SetId "${state.val}"  "" \n`);
+                    this.stream.write(`Action Ds/Radio 2 SetId "${state.val}"  "" \n`);
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Radio 1 Play \n`);
+                    this.stream.write(`Action Ds/Radio 2 Play \n`);
                     break;
             }
 
