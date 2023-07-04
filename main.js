@@ -231,10 +231,12 @@ class Lpeclinn extends utils.Adapter {
             if (state.ack) return;
 
             const onlyId = id.replace('lpeclinn.0.', '');  //this.namespace + '.', '');
+            this.log.info(onlyId);
             switch (onlyId) {
                 case 'device.volume':
                     // @ts-ignore
-                    this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}" \n`);
+                    this.log.info(`Action Ds/Volume 2 SetVolume "${state.val}"`);
+                    this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}"`);
                     break;
                 case 'device.mute':
                     // @ts-ignore
