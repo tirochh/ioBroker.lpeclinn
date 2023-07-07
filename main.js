@@ -111,7 +111,6 @@ class Lpeclinn extends utils.Adapter {
         this.subscribeStates('device.standby');
         this.subscribeStates('device.sourceIndex');
         this.subscribeStates('device.radio');
-        this.subscribeStates('device.bye'); //only read
 
         // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
         // this.subscribeStates('lights.*');
@@ -142,13 +141,12 @@ class Lpeclinn extends utils.Adapter {
 
     async setLinnEventToIOBroker(ev, linnName, ioBrokerName) {
         const regEx  = (txtValue) => RegExp(`${txtValue} \\"(\\d+|true|false|\\w+)\\"`,'gm');
-        const regEx_Bye = () => RegExp(`(BYE)BYE `,'gm');
         // const regEx2 = (txtValue) => RegExp(`${txtValue}&gt;(\\w+)&lt;`,'gm');
         const getValueSubscribed = (subscribed,regex) => Array.from(subscribed.matchAll(regex)).length?Array.from(subscribed.matchAll(regex)).at(-1).at(-1):'';
         //const setValue =  (txtSubdevice,txtServiceVersion,txtValue,val,val2='')  => `Action ${txtSubdevice}/${txtServiceVersion} Set${txtValue} "${val}"${val2}`
         //const setPlay =   (txtSubdevice,txtServiceVersion)  => `Action ${txtSubdevice}/${txtServiceVersion} Play`
         //const subScribe = (txtSubdevice,txtService) => `Subscribe ${txtSubdevice}/${txtService}`;
-        const get_v = getValueSubscribed(ev,linnName='Bye'?regEx_Bye():regEx(linnName));
+        const get_v = getValueSubscribed(ev,regEx(linnName));
         if (get_v != '') {
             this.log.info(`Set ${linnName}: ${get_v}`);
             await this.setStateAsync(ioBrokerName,{val:get_v,ack:true});
@@ -164,7 +162,6 @@ class Lpeclinn extends utils.Adapter {
             this.setLinnEventToIOBroker.bind(this)(event, 'Standby', 'device.standby');
             this.setLinnEventToIOBroker.bind(this)(event, 'SourceIndex', 'device.sourceIndex');
             this.setLinnEventToIOBroker.bind(this)(event, 'Id', 'device.radio');
-            this.setLinnEventToIOBroker.bind(this)(event, 'Bye', 'device.bye'); //only read
         //}
     }
 
