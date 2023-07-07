@@ -106,7 +106,7 @@
       "native": {}
     },
     {
-      "_id": "info.connection",
+      "_id": "info.connection",ddddd 
       "type": "state",
       "common": {
         "role": "indicator.connected",
@@ -160,7 +160,7 @@
         "type": "string",
         "read": true,
         "write": true,
-        "def": "true"
+        "def": "false"
       },
       "native": {}
     },
@@ -184,7 +184,7 @@
         "name": "Radio",
         "type": "string",
         "read": true,
-        "write": true,
+        "write": true
       },
       "native": {}
     }
