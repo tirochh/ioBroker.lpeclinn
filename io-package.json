@@ -134,8 +134,7 @@
         "name": "Volume",
         "type": "string",
         "read": true,
-        "write": true,
-        "def": "50"
+        "write": true
       },
       "native": {}
     },
@@ -166,18 +165,6 @@
       "native": {}
     },
     {
-      "_id": "device.bye",
-         "type": "state",
-         "common": {
-            "role": "value",
-            "name": "Bye",
-            "type": "string",
-            "read": true,
-            "write": false
-         },
-         "native": {}
-      },
-    {
       "_id": "device.sourceIndex",
       "type": "state",
       "common": {
@@ -185,8 +172,7 @@
         "name": "SourceIndex",
         "type": "string",
         "read": true,
-        "write": true,
-        "def": "1"
+        "write": true
       },
       "native": {}
     },
@@ -199,7 +185,6 @@
         "type": "string",
         "read": true,
         "write": true,
-        "def": "1"
       },
       "native": {}
     }
