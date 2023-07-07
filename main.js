@@ -218,7 +218,7 @@ class Lpeclinn extends utils.Adapter {
             'Analog1',      // 5
             'Analog2',      // 6
             'SPDIF',        // 7
-            'TOSLINK'       // 8
+            'TOSLINK',      // 8
             'HDMI1',        // 9
             'HDMI2',        // 10
             'HDMI3',        // 11
