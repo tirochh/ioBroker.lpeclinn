@@ -227,6 +227,7 @@ class Lpeclinn extends utils.Adapter {
         ];
         if (state) {
             // The state was changed
+            this.log.info(`this.namespace: ${this.namespace}; state.ack: ${state.ack}`;
             if (!state.ack) state.ack = true;
             this.log.info(`IOBroker change: state ${id} changed: ${state.val} (ack = ${state.ack})`);
 
