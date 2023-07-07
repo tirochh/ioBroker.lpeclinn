@@ -209,7 +209,7 @@ class Lpeclinn extends utils.Adapter {
      * @param {ioBroker.State | null | undefined} state
      */
     onStateChange(id, state) {
-        const ix = [ //can be changed, test with 'Action Ds/Product 2 Source "<i>"
+        const ix = [ //can be changed, test with: Action Ds/Product 2 Source "<i>"
             'PlayList',     // 0
             'Radio',        // 1
             'UPnP AV',      // 2
@@ -269,6 +269,9 @@ class Lpeclinn extends utils.Adapter {
             this.log.info(`IOBroker change: state ${id} deleted`);
         }
     }
+
+
+    
 
     // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
     // /**
