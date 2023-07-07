@@ -204,6 +204,19 @@
       },
       "native": {}
     },
+       {
+      "_id": "device.bye",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Bye",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
     {
       "_id": "device.sourceIndex",
       "type": "state",
