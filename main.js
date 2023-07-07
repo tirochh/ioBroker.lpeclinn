@@ -263,15 +263,11 @@ class Lpeclinn extends utils.Adapter {
                     this.stream.write(`Action Ds/Radio 2 Play \n`);
                     break;
             }
-
         } else {
             // The state was deleted
             this.log.info(`IOBroker change: state ${id} deleted`);
         }
     }
-
-
-    
 
     // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
     // /**
@@ -290,7 +286,6 @@ class Lpeclinn extends utils.Adapter {
     //         }
     //     }
     // }
-
 }
 
 if (require.main !== module) {
