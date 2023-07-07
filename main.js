@@ -237,7 +237,7 @@ class Lpeclinn extends utils.Adapter {
             if (!state.ack) state.ack = true;
             const onlyId = id.replace(this.namespace + '.', '');
             switch (onlyId) {
-                case 'device.bye:
+                case 'device.bye':
                     break;
                 case 'device.volume':
                     // @ts-ignore
