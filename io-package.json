@@ -134,7 +134,8 @@
         "name": "Volume",
         "type": "string",
         "read": true,
-        "write": true
+        "write": true,
+        "def": "45"
       },
       "native": {}
     },
@@ -172,7 +173,8 @@
         "name": "SourceIndex",
         "type": "string",
         "read": true,
-        "write": true
+        "write": true,
+        "def": "1"
       },
       "native": {}
     },
@@ -184,7 +186,8 @@
         "name": "Radio",
         "type": "string",
         "read": true,
-        "write": true
+        "write": true,
+        "def": "1"
       },
       "native": {}
     }
