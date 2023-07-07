@@ -1,4 +1,4 @@
-s'use strict';
+'use strict';
 
 /*
  * Created with @iobroker/create-adapter v2.4.0
@@ -71,7 +71,6 @@ class Lpeclinn extends utils.Adapter {
                 events.forEach(event => {
                     onLinnEvent.bind(this)(event);
                 });
-
             });
             this.log.info('Subscribe Ds/Volume 2');
             // @ts-ignore
@@ -143,7 +142,7 @@ class Lpeclinn extends utils.Adapter {
 
     async setLinnEventToIOBroker(ev, linnName, ioBrokerName) {
         const regEx  = (txtValue) => RegExp(`${txtValue} \\"(\\d+|true|false|\\w+)\\"`,'gm');
-        const regEx_Bye  = () => RegExp(`(BYE)BYE `,'gm');
+        const regEx_Bye = () => RegExp(`(BYE)BYE `,'gm');
         // const regEx2 = (txtValue) => RegExp(`${txtValue}&gt;(\\w+)&lt;`,'gm');
         const getValueSubscribed = (subscribed,regex) => Array.from(subscribed.matchAll(regex)).length?Array.from(subscribed.matchAll(regex)).at(-1).at(-1):'';
         //const setValue =  (txtSubdevice,txtServiceVersion,txtValue,val,val2='')  => `Action ${txtSubdevice}/${txtServiceVersion} Set${txtValue} "${val}"${val2}`
@@ -301,4 +300,3 @@ if (require.main !== module) {
     // otherwise start the instance directly
     new Lpeclinn();
 }
-                
