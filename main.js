@@ -1,4 +1,4 @@
-'use strict';
+s'use strict';
 
 /*
  * Created with @iobroker/create-adapter v2.4.0
@@ -112,6 +112,7 @@ class Lpeclinn extends utils.Adapter {
         this.subscribeStates('device.standby');
         this.subscribeStates('device.sourceIndex');
         this.subscribeStates('device.radio');
+        this.subscribeStates('device.byebye');
 
         // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
         // this.subscribeStates('lights.*');
@@ -163,6 +164,7 @@ class Lpeclinn extends utils.Adapter {
             this.setLinnEventToIOBroker.bind(this)(event, 'Standby', 'device.standby');
             this.setLinnEventToIOBroker.bind(this)(event, 'SourceIndex', 'device.sourceIndex');
             this.setLinnEventToIOBroker.bind(this)(event, 'Id', 'device.radio');
+            this.setLinnEventToIOBroker.bind(this)(event, 'ByeBye', 'device.byebye');
         //}
     }
 
@@ -207,33 +209,33 @@ class Lpeclinn extends utils.Adapter {
      * @param {ioBroker.State | null | undefined} state
      */
     onStateChange(id, state) {
-        const ix = [
-            'PlayList', // 0
-            'Radio',    // 1
-            'iN_02',    // 2
-            'iN_03',    // 3
-            'iN_04',    // 4
-            'iN-05',    // 5
-            'iN_06',    // 6
-            'iN_07',    // 7
-            'iN_08',    // 8
-            'HDMI1',    // 9
-            'HDMI2',    // 10
-            'HDMI3',    // 11
-            'HDMI4',    // 12
-            'HDMI ARC', // 13
-            'iN_14',    // 14
-            'iN_15'     // 15
+        const ix = [ //can be changed, test with 'Action Ds/Product 2 Source "<i>"
+            'PlayList',     // 0
+            'Radio',        // 1
+            'UPnP AV',      // 2
+            'Songcast',     // 3
+            'AirPlay',      // 4
+            'Analog1',      // 5
+            'Analog2',      // 6
+            'SPDIF',        // 7
+            'TOSLINK'       // 8
+            'HDMI1',        // 9
+            'HDMI2',        // 10
+            'HDMI3',        // 11
+            'HDMI4',        // 12
+            'HDMI ARC',     // 13
+            'USB',          // 14
+            'Spotify',      // 15
+            'Roon',         // 16
+            'Spotify',      // 17
+            'SpeakerTest',  // 18
+            'Mix'           // 19
         ];
         if (state) {
             // The state was changed
-            this.log.info(`this.namespace: ${this.namespace}; state.ack: ${state.ack}`);
-            if (!state.ack) state.ack = true;
             this.log.info(`IOBroker change: state ${id} changed: ${state.val} (ack = ${state.ack})`);
-
-            const onlyId = id.replace('lpeclinn.0.', '');
-            //const onlyId = id.replace(this.namespace + '.', '');
-            this.log.info(onlyId);
+            if (!state.ack) state.ack = true;
+            const onlyId = id.replace(this.namespace + '.', '');
             switch (onlyId) {
                 case 'device.volume':
                     // @ts-ignore
