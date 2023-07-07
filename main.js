@@ -236,9 +236,8 @@ class Lpeclinn extends utils.Adapter {
             this.log.info(`IOBroker change: state ${id} changed: ${state.val} (ack = ${state.ack})`);
             if (!state.ack) state.ack = true;
             const onlyId = id.replace(this.namespace + '.', '');
+            if onlyId == 'device.bye' return;
             switch (onlyId) {
-                case 'device.bye':
-                    break;
                 case 'device.volume':
                     // @ts-ignore
                     this.stream.write(`Action Ds/Volume 2 SetVolume "${state.val}" \n`);
