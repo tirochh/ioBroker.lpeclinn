@@ -127,6 +127,19 @@
       "native": {}
     },
     {
+      "_id": "device.cmd",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Cmd",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "def": "true"
+      },
+      "native": {}
+    },
+    {
       "_id": "device.volume",
       "type": "state",
       "common": {
