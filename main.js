@@ -72,6 +72,10 @@ class Lpeclinn extends utils.Adapter {
                     onLinnEvent.bind(this)(event);
                 });
             });
+            this.log.info('First:Blank');
+            // @ts-ignore
+            stream.write(' \n');
+            
             this.log.info('Subscribe Ds/Volume 2');
             // @ts-ignore
             stream.write('Subscribe Ds/Volume 2\n');
