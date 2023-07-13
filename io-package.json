@@ -127,15 +127,15 @@ re      "_id": "info.connection",
       "native": {}
     },
     {
-      "_id": "device.cmd",
+      "_id": "device.cmdInit",
       "type": "state",
       "common": {
         "role": "value",
-        "name": "Cmd",
+        "name": "CmdInit",
         "type": "boolean",
         "read": false,
         "write": true,
-        "def": eetrue
+        "def": true
       },
       "native": {}
     },
