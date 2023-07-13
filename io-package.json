@@ -106,7 +106,7 @@
       "native": {}
     },
     {
-re      "_id": "info.connection",
+      "_id": "info.connection",
       "type": "state",
       "common": {
         "role": "indicator.connected",
@@ -135,7 +135,7 @@ re      "_id": "info.connection",
         "type": "boolean",
         "read": false,
         "write": true,
-        "def": true
+        "def": false
       },
       "native": {}
     },
