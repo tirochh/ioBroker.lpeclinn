@@ -115,6 +115,7 @@ class Lpeclinn extends utils.Adapter {
         this.subscribeStates('device.standby');
         this.subscribeStates('device.sourceIndex');
         this.subscribeStates('device.radio');
+        this.subscribeStates('device.cmd');
 
         // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
         // this.subscribeStates('lights.*');
@@ -261,6 +262,18 @@ class Lpeclinn extends utils.Adapter {
                     this.stream.write(`Action Ds/Radio 2 SetId "${state.val}"  "" \n`);
                     // @ts-ignore
                     this.stream.write(`Action Ds/Radio 2 Play \n`);
+                    break;
+                case 'device.cmd':
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Product 2 Standby \n`);
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Volume 2 Mute \n`);
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Volume 2 Volume \n`);
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Product 2 SourceIndex \n`);
+                    // @ts-ignore
+                    this.stream.write(`Action Ds/Radio 2 Id \n`);
                     break;
             }
         } else {
